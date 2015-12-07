@@ -1,0 +1,30 @@
+- Problema 1:
+
+- Indexação
+Criei um indice invertido rudimentar (e foi o problema que mais gostei!). Rudimentar porque não me preocupei 
+em distribuir em 'database file' dos indices com controle de concorrencia e tudo mais. Ao invés disso criei um mecaniscmo de 
+persistencia simples em disco que guarda os tokens e seus 'documentos'. 
+O programa cria uma lista de titles que passa pela fase pelo Normalizer para retirada de caracteres especiais e aplica 
+lowercase. Depois os titles passam pelo Tokenizer que separa o title em palavras e associa dos titles em um estrutura de 
+dados que será armazenada em disco para consulta (Caberia aqui também fazer Stemming das palavras e retirar as stop-words).
+ 
+- Pesquisa
+Para a busca o programa le o arquivo em disco e recria estrutura de dados em memória para realizar as buscas (Aqui o 
+SearchQuery poderia usar um QueryParser para tratar de querys mais complexas como com expressoes booleanas e tal, (por isso 
+achei esse problema o mais legal... dá pra viajar...)).
+
+### Altere os paths para seus cenários!
+- Requisitos:
+JRE - Java 7
+# Usada: Java(TM) SE Runtime Environment (build 1.7.0_79-b15)
+
+- Build:
+$ mvn clean package install
+$ cd targed
+
+- Indexação 
+$ cd targed
+$ java -cp nmonitor.jar br.com.nmonitor.runners.Indexer -titleFile /Users/cadu/indexer/titles.txt -destFile  /Users/cadu/indexer/index.ix
+
+- Busca
+$ java -cp nmonitor.jar br.com.nmonitor.runners.SearchIndex -indexPath  /Users/cadu/indexer/index.ix
